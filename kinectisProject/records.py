@@ -47,9 +47,6 @@ def addRecords(request):
             
             
                 
-                
-            
-                
-        
+                    
     return render(request,'record.html') 
 

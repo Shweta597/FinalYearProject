@@ -1,277 +1,84 @@
-
-
 <!DOCTYPE html>
 
 <html lang="en">
 
- <head>
+<head>
 
- <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
 
- <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Kinetic Analysis</title>
- <style type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kinetic Analysis</title>
+  <link rel="stylesheet" href="/static/styles.css">
 
-body {
-  background: linear-gradient(45deg, #FC466B, #3F5EFB);
-  height: 100vh;
-  font-family: 'Montserrat', sans-serif;
-}
-.container {
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 55%;
-  left: 50%;
-}
 
-.navbar {
+</head>
 
-display: flex;
+<body>
 
-align-items: center;
-margin-left: -100px;
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><h2>KineticAnalysis</h2></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/addRecords">AddRecords</a></li>
+      <li><a href="/dataAnalysis">DataAnalysis</a></li>
+      <li><a href="/graphCreation">GraphCreation</a></li>
+      <li><a href="/energyDetermination">EnergyDetermination</a></li>
+    </ul>
+  </nav>
 
-justify-content: space-between;
 
-padding: 1px;
+  <div class="container">
+    <p>
+    <h2>Welcom to the KineticAnalysis Website</h2>
 
-background-color:linear-gradient(45deg, #FC466B, #3F5EFB);
+    This website can help you to find
+    Which Mechanism is prevailing in Kinetic Data Analysis of Metallurgical Processes</li>
+    You can get the graph of g (α) Vs t
+    You can also find the Activation Energy of the proceses
 
-color: #fff;
+    AddRecords: In this section user have to give the following inputs
 
-}
+    1. Name of the Reaction
+    2. Temperature at which reaction is happening
+    3. Number of Input user want to give
+    4. Initial Weight of the reaction
+    5. Final Weights as an array of length size
+    6. Time Periods as an array of length size
 
-.nav-links a {
+    We will verify and save user input in our database.
 
-color: #fff;
+    DataAnalysis: In this section user have to give
 
-}
+    1. Name of the Reaction
+    2. Temperature at which reaction is happening
 
-/* LOGO */
+    We will Analyse the data then give the user which Mechanism is prevailing among the seventeen different solid state
+    mechanism
 
-.logo {
+    GraphCreation: In this section if user want to get the plot between g (α) Vs t for an specific mechanism user have
+    to give
+    1. Name of the Reaction
+    2. Temperature at which reaction is happening
+    3. Meachnism Number
 
-font-size: 32px;
 
+    EnergyDetermination:In this section if user want to get the Activation Energy for an specific proceses user have to
+    give
+    1. Name of the Reaction
+  </p>
+  </div>
 
-}
 
-/* NAVBAR MENU */
 
-.menu {
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+        // {% for msg in messages %}
+        //     swal('{{msg}}')
+        // {% endfor %}  
 
-display: flex;
-
-gap: 0.5em;
-
-font-size: 18px;
-
-}
-
-.menu a:hover {
-
-background-color: black;
-
-border-radius: 10px;
-
-transition: 0.3s ease;
-
-}
-a{
-    text-decoration: none !important;
-    
-
-}
-
-
-.menu a {
-
-padding: 10px 10px;
-
-}
-
-/* DROPDOWN MENU */
-
-
-input[type=checkbox]{
-
-display: none;
-
-} 
-
-/*HAMBURGER MENU*/
-
-.hamburger {
-
-display: none;
-
-font-size: 24px;
-
-user-select: none;
-
-}
-
-/* APPLYING MEDIA QUERIES */
-
-@media (max-width: 768px) {
-
-.menu { 
-
-display:none;
-
-position: absolute;
-
-background-color:teal;
-
-right: 0;
-
-left: 0;
-
-text-align: center;
-
-padding: 15px 0;
-
-}
-
-.menu a:hover {
-
-display: inline-block;
-
-background-color:#4c9e9e;
-
-transition: 0.3s ease;
-
-}
-
-.menu a+a {
-
-margin-top: 15px;
-
-}
-
-input[type=checkbox]:checked ~ .menu{
-
-display: block;
-
-}
-
-.hamburger {
-
-display: block;
-
-}
-
-
-}   
-
-
- </style>
- 
-
- 
- </head>
-
- <body>
-
-
- <nav class="navbar">
-
-   <!-- LOGO -->
-
-   <div class="logo">KineticAnalysis</div>
-
-   <!-- NAVIGATION MENU -->
-
-   <ul class="nav-links">
-
-   <!-- USING CHECKBOX HACK -->
-
-   <input type="checkbox" id="checkbox_toggle" />
-
-   <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-
-   <!-- NAVIGATION MENUS -->
-
-   <div class="menu">
-    <a href="/">Home</a>
-     <a href="/addRecords">AddRecords</a>
-
-     <a href="/dataAnalysis">DataAnalysis</a>
-
-     <a href="/graphCreation">GraphCreation</a>
-
-     
-
-     <a href="/energyDetermination">EnergyDetermination</a>
-
-     
-   </div>
-    <div class="container">
-
-    </div>
-
-   </ul>
-
- </nav>
- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
- <script>
-        {% for msg in messages %}
-            swal('{{msg}}')
-        {% endfor %}  
-         
- </script>
- </body>
+  </script>
+</body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
