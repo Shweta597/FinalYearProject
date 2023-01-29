@@ -27,7 +27,9 @@ def addRecords(request):
             "size":size,
             "initialWeight":initialWeight,
             "finalWeights":finalWeights,
-            "timePeriods":timePeriods
+            "timePeriods":timePeriods,
+            "G_Alpha":[],
+            "MechNumber":0
         }
         allData = collection.find()
         

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Records</title>
+    <title>Graph</title>
     <style type="text/css">
 
 
@@ -140,14 +140,14 @@ button:focus {
     <div class="container">
     <form action="/analysis" method="get">
         {% csrf_token %}
-        <p>Data Analysis</p>
+        <p>Graph Creation</p>
         
     
         <input type="text" id="reaction" name="reaction" placeholder="Name of the Reaction" required/>
         <br>
         <input type="text" id="temp" name="temp" placeholder="Temperature of the Reaction" required/>
         <br>
-        <button type="submit">Analyse</button>
+        <button type="submit">Create Graph</button>
     
 </form> 
 

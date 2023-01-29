@@ -137,22 +137,9 @@ button:focus {
     
     {% include 'index.html' %}
     
-    <div class="container">
-    <form action="/analysis" method="get">
-        {% csrf_token %}
-        <p>Data Analysis</p>
-        
-    
-        <input type="text" id="reaction" name="reaction" placeholder="Name of the Reaction" required/>
-        <br>
-        <input type="text" id="temp" name="temp" placeholder="Temperature of the Reaction" required/>
-        <br>
-        <button type="submit">Analyse</button>
-    
-</form> 
-
-
-</div>
+    {% block analysisResult %}
+    {{ mech }}
+    {% endblock analysisResult %}
 </body>
 </html>
 
