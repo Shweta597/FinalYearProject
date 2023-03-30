@@ -23,6 +23,12 @@ from django.shortcuts import render
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from django.shortcuts import render, redirect
+
+import cloudinary.uploader
+import os
+
+
 
 
 
@@ -57,9 +63,9 @@ def graph(request):
         MechNumber = 0
         G_Alpha = ""
         timePeriods = ""
-
+        image_url = ""
         check = False
-        context = []
+        result = []
 
         for item in reactionData:
             if item["reaction"] == reaction and item["temperature"] == temperature:
@@ -70,9 +76,13 @@ def graph(request):
                 timePeriods = item["timePeriods"]
                 G_Alpha = item["G_Alpha"]
                 MechNumber = item["MechNumber"]
+                image_url = item["image_url"]
                 break
 
-        if check == True:
+        if check == True and image_url!="":
+            result = image_url
+
+        elif check == True:
             x = []
             y = []
             if MechNumber != 0:
@@ -80,36 +90,33 @@ def graph(request):
                 y = [float(i) for i in G_Alpha.split(',')]
                 print(x)
                 print(y)
-                # for c in timePeriods:
-                #     x.append((c))
-                # for c in G_Alpha:
-                #     y.append((c))
-                # print(x)
-                # print(y)
-                    
-                # x =  [ for e in timePeriods.split(",")]
-                # y = [ for e in G_Alpha.split(",")]
                 plt.plot(x,y)
                 plt.savefig("gAlphaVsTimePeriod.png")
-                # context.append("Graph is created!")
+                data = cloudinary.uploader.upload("gAlphaVsTimePeriod.png",folder="kinetics" )
+
+                # print(data)
+    
+                result = data['url']
+                filter = {'reaction': reaction, 'temperature': temperature}
+                newValues = {
+                    "$set": {"image_url": result}}
+                collection.update_one(filter, newValues)
+                print(result)
+                os.remove('gAlphaVsTimePeriod.png')
+                
+            else:
+                
+                result = "Need to do data analysis first"
                 
 
-                
-                # return render(request, "graphCreationResult.html" )
-                
-                
-        #     else:
-                
-        #         context.append("Need to do data analysis first")
-        #         # return render(request, "graphCreationResult.html")
-
-        # else:
-        #     context.append("No records is available for this reaction")
-            # return render(request, "graphCreationResult.html") 
+        else:
+            result = "No records is available for this reaction"
+            
 
         return render(request, "graphCreationResult.html")
 
 
 # autopep8 -i try.py
+
 
 

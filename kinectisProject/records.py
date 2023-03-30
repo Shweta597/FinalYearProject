@@ -29,7 +29,8 @@ def addRecords(request):
             "finalWeights":finalWeights,
             "timePeriods":timePeriods,
             "G_Alpha":"",
-            "MechNumber":0
+            "MechNumber":0,
+            "image_url":""
         }
         allData = collection.find()
         
