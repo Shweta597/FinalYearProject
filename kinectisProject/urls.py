@@ -29,8 +29,10 @@ urlpatterns = [
     path('',views.home,name='Home'),
     path('addRecords',records.addRecords,name='Records'),
     path('dataAnalysis',analysis.dataAnalysis,name='dataAnalysis'),
-    path('analysis',analysis.Analysis,name='Analysis'),
-    path('graphCreation',graph.graphCreation,name='Graph'),
+    path('analysis', analysis.Analysis,name='Analysis'),
+    path('graphCreation',graph.graphCreation,name='GraphCreation'),
+   
     path('energyDetermination',energy.energyDetermination,name='Energy'),
+     path('graph',graph.graph,name='Graph'),
     
 ]

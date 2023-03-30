@@ -13,7 +13,25 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import mimetypes
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
+
+cloudinary.config( 
+    cloud_name =  "dbgzle00m", 
+   api_key = "945933357292473", 
+   api_secret = "x0gQHaGRjG2lkkeVWxjWH-_pYXQ"
+)
+
+# CLOUDINARY_STORAGE = {
+#   'CLOUD_NAME':  "dbgzle00m", 
+#   'API_KEY': "945933357292473", 
+#   'API_SECRET': "x0gQHaGRjG2lkkeVWxjWH-_pYXQ",
+  
+# }
+MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +56,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'corsheaders',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +71,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'kinectisProject.urls'
@@ -124,6 +148,9 @@ STATICFILES_DIRS = (
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -144,4 +171,31 @@ LOGGING = {
         },
     },
 }
+CORS_ORIGIN_ALLOW_ALL = True
+APPEND_SLASH = False
+
+# CORS_ALLOWED_ORIGINS = [
+# '*'
+# ]
+
+CORS_ALLOW_METHODS = [
+'DELETE',
+'GET',
+'OPTIONS',
+'PATCH',
+'POST',
+'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
+]
 

@@ -16,6 +16,7 @@ import numpy as np
 import sympy as sym
 from sympy import symbols, sympify
 import re
+from django.shortcuts import render
 
 
 logger = logging.getLogger(__name__)
@@ -410,7 +411,7 @@ def calculationOfAlpha(finalWeights, timePeriods, alpha, initialWeight):
         alpha.append(round(alphaVal, 5))
 
 
-def dataAnalysisHelper(sizeOfData, initialWeightOfData, finalWeightsOfData, timePeriodsofData, G_Alpha):
+def dataAnalysisHelper(sizeOfData, initialWeightOfData, finalWeightsOfData, timePeriodsofData):
     # Taking Inputs
     initialWeight = float(initialWeightOfData)
     size = int(sizeOfData)
@@ -476,11 +477,16 @@ def dataAnalysisHelper(sizeOfData, initialWeightOfData, finalWeightsOfData, time
 
     if count != 1:
         mechNumber = getMechNumber(tVal, fVal, remEq, size)
+    G_Alpha = ""
 
-        G_Alpha = gAlpha[mechNumber]
-        print(mechNumber)
+    for i in range(0,size):
+        G_Alpha = G_Alpha + str(gAlpha[mechNumber-1][i])
+        if i!=size-1:
+            G_Alpha = G_Alpha+','
+    
+    
 
-    return mechNumber
+    return {mechNumber,G_Alpha}
 
 
 def dataAnalysis(request):
@@ -495,9 +501,10 @@ def Analysis(request):
         reactionData = collection.find()
         finalWeights = []
         MechNumber = 0
-        G_Alpha = []
+        size = 0
+        initialWeight = 0
         timePeriods = []
-
+        G_Alpha = ""
         check = False
 
         for item in reactionData:
@@ -512,18 +519,20 @@ def Analysis(request):
                 break
 
         if check == True:
-            if MechNumber != 0:
+            if MechNumber != 0 and G_Alpha!="" :
 
                 context = {'mech': MechNumber}
                 return render(request, "analysisResult.html", context)
             else:
-                MechNumber = dataAnalysisHelper(
-                    size, initialWeight, finalWeights, timePeriods, G_Alpha)
+                MechNumber,G_Alpha_String = dataAnalysisHelper(size, initialWeight, finalWeights, timePeriods)
+                
+                
                 filter = {'reaction': reaction, 'temperature': temperature}
                 newValues = {
-                    "$set": {"G_Alpha": G_Alpha, "MechNumber": MechNumber}}
+                    "$set": {"G_Alpha": G_Alpha_String, "MechNumber": MechNumber}}
                 collection.update_one(filter, newValues)
                 context = {'mech': MechNumber}
+                # context = {'G_ALPHA':G_Alpha}
                 return render(request, "analysisResult.html", context)
 
         else:

@@ -7,8 +7,6 @@
     <title>Graph</title>
     <style type="text/css">
 
-
-
 body {
   background: linear-gradient(45deg, #FC466B, #3F5EFB);
   height: 100vh;
@@ -131,6 +129,8 @@ button:focus {
     outline: none;
 }
 
+
+
     </style>
 </head>
 <body>
@@ -138,7 +138,7 @@ button:focus {
     {% include 'index.html' %}
     
     <div class="container">
-    <form action="/analysis" method="get">
+    <form action="/graph" method="post">
         {% csrf_token %}
         <p>Graph Creation</p>
         
@@ -148,6 +148,7 @@ button:focus {
         <input type="text" id="temp" name="temp" placeholder="Temperature of the Reaction" required/>
         <br>
         <button type="submit">Create Graph</button>
+        
     
 </form> 
 

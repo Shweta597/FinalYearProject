@@ -1,9 +1,10 @@
 
 import logging
-from django.contrib import messages
+
+from matplotlib.style import context
 from pymongo import MongoClient
 from django.shortcuts import render
-from django.http import HttpResponse
+
 from matplotlib.animation import FuncAnimation
 import matplotlib
 from math import sqrt, log
@@ -16,6 +17,13 @@ import numpy as np
 import sympy as sym
 from sympy import symbols, sympify
 import re
+matplotlib.use('SVG')
+import io, base64
+from django.shortcuts import render
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 
 logger = logging.getLogger(__name__)
@@ -31,52 +39,67 @@ db = client['kineticsData']
 collection = db['data']
 
 
+
+
+
+
 def graphCreation(request):
     return render(request, "graphCreation.html")
 
 
-# def Analysis(request):
+def graph(request):
 
-#     if request.method == "GET":
-#         reaction = request.GET.get("reaction")
-#         temperature = request.GET.get("temp")
-#         reactionData = collection.find()
-#         finalWeights = []
-#         MechNumber = 0
-#         G_Alpha = []
-#         timePeriods = []
+    if request.method == "POST":
+        reaction = request.POST.get("reaction")
+        temperature = request.POST.get("temp")
+        reactionData = collection.find()
+        finalWeights = []
+        MechNumber = 0
+        G_Alpha = []
+        timePeriods = []
 
-#         check = False
+        check = False
 
-#         for item in reactionData:
-#             if item["reaction"] == reaction and item["temperature"] == temperature:
-#                 check = True
-#                 size = item["size"]
-#                 initialWeight = item["initialWeight"]
-#                 finalWeights = item["finalWeights"]
-#                 timePeriods = item["timePeriods"]
-#                 G_Alpha = item["G_Alpha"]
-#                 MechNumber = item["MechNumber"]
-#                 break
+        for item in reactionData:
+            if item["reaction"] == reaction and item["temperature"] == temperature:
+                check = True
+                size = item["size"]
+                initialWeight = item["initialWeight"]
+                finalWeights = item["finalWeights"]
+                timePeriods = item["timePeriods"]
+                G_Alpha = item["G_Alpha"]
+                MechNumber = item["MechNumber"]
+                break
 
-#         if check == True:
-#             if MechNumber != 0:
+        if check == True:
+            x = []
+            y = []
+            if MechNumber != 0:
+                for c in timePeriods:
+                    x.append(float(c.split(",")))
+                for c in G_Alpha:
+                    y.append(float(c.split(",")))
+                    
+                # x =  [ for e in timePeriods.split(",")]
+                # y = [ for e in G_Alpha.split(",")]
+                plt.plot(x,y)
+                plt.savefig("gAlphaVsTimePeriod.png")
+                
 
-#                 context = {'mech': MechNumber}
-#                 return render(request, "analysisResult.html", context)
-#             else:
-#                 MechNumber = dataAnalysisHelper(
-#                     size, initialWeight, finalWeights, timePeriods, G_Alpha)
-#                 filter = {'reaction': reaction, 'temperature': temperature}
-#                 newValues = {
-#                     "$set": {"G_Alpha": G_Alpha, "MechNumber": MechNumber}}
-#                 collection.update_one(filter, newValues)
-#                 context = {'mech': MechNumber}
-#                 return render(request, "analysisResult.html", context)
+                
+                return render(request, "graphCreationResult.html" )
+                
+                
+            else:
+                
+                
+                return render(request, "graphCreationResult.html")
 
-#         else:
-#             context = {'mech': 0}
-#             return render(request, "analysisResult.html", context)
+        else:
+            
+            return render(request, "graphCreationResult.html")
+
+    # return render(request, "graphCreationResult.html" )
 
 
 # autopep8 -i try.py
