@@ -33,6 +33,6 @@ urlpatterns = [
     path('graphCreation',graph.graphCreation,name='GraphCreation'),
    
     path('energyDetermination',energy.energyDetermination,name='Energy'),
-     path('graph',graph.graph,name='Graph'),
+    path('graph',graph.graph,name='Graph'),
     
 ]

@@ -506,6 +506,7 @@ def Analysis(request):
         timePeriods = []
         G_Alpha = ""
         check = False
+        context = 0
 
         for item in reactionData:
             if item["reaction"] == reaction and item["temperature"] == temperature:
@@ -522,7 +523,7 @@ def Analysis(request):
             if MechNumber != 0 and G_Alpha!="" :
 
                 context = {'mech': MechNumber}
-                return render(request, "analysisResult.html", context)
+                # return render(request, "analysisResult.html", context)
             else:
                 MechNumber,G_Alpha_String = dataAnalysisHelper(size, initialWeight, finalWeights, timePeriods)
                 
@@ -533,11 +534,12 @@ def Analysis(request):
                 collection.update_one(filter, newValues)
                 context = {'mech': MechNumber}
                 # context = {'G_ALPHA':G_Alpha}
-                return render(request, "analysisResult.html", context)
+                # return render(request, "analysisResult.html", context)
 
         else:
             context = {'mech': 0}
-            return render(request, "analysisResult.html", context)
+            # return render(request, "analysisResult.html", context)
+        return render(request, "analysisResult.html", context)
 
 
 # autopep8 -i try.py

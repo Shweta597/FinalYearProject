@@ -49,16 +49,17 @@ def graphCreation(request):
 
 def graph(request):
 
-    if request.method == "POST":
-        reaction = request.POST.get("reaction")
-        temperature = request.POST.get("temp")
+    if request.method == "GET":
+        reaction = request.GET.get("reaction")
+        temperature = request.GET.get("temp")
         reactionData = collection.find()
         finalWeights = []
         MechNumber = 0
-        G_Alpha = []
-        timePeriods = []
+        G_Alpha = ""
+        timePeriods = ""
 
         check = False
+        context = []
 
         for item in reactionData:
             if item["reaction"] == reaction and item["temperature"] == temperature:
@@ -75,31 +76,38 @@ def graph(request):
             x = []
             y = []
             if MechNumber != 0:
-                for c in timePeriods:
-                    x.append(float(c.split(",")))
-                for c in G_Alpha:
-                    y.append(float(c.split(",")))
+                x = [float(i) for i in timePeriods.split(',')]
+                y = [float(i) for i in G_Alpha.split(',')]
+                print(x)
+                print(y)
+                # for c in timePeriods:
+                #     x.append((c))
+                # for c in G_Alpha:
+                #     y.append((c))
+                # print(x)
+                # print(y)
                     
                 # x =  [ for e in timePeriods.split(",")]
                 # y = [ for e in G_Alpha.split(",")]
                 plt.plot(x,y)
                 plt.savefig("gAlphaVsTimePeriod.png")
+                # context.append("Graph is created!")
                 
 
                 
-                return render(request, "graphCreationResult.html" )
+                # return render(request, "graphCreationResult.html" )
                 
                 
-            else:
+        #     else:
                 
-                
-                return render(request, "graphCreationResult.html")
+        #         context.append("Need to do data analysis first")
+        #         # return render(request, "graphCreationResult.html")
 
-        else:
-            
-            return render(request, "graphCreationResult.html")
+        # else:
+        #     context.append("No records is available for this reaction")
+            # return render(request, "graphCreationResult.html") 
 
-    # return render(request, "graphCreationResult.html" )
+        return render(request, "graphCreationResult.html")
 
 
 # autopep8 -i try.py
