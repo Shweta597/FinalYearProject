@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Analysis</title>
+    <title>Records</title>
     <link rel="stylesheet" href="/static/styles.css">
     
 </head>
@@ -19,16 +19,16 @@
       <li><a href="/graphCreation">GraphCreation</a></li>
       <li><a href="/energyDetermination">EnergyDetermination</a></li>
     </ul>
-  </nav> 
-  <form action="/dataAnalysis" method="post">
-    <p><h1>Data Analysis</h1></p>
+  </nav>
+  <form action="/energyDetermination" method="get">
+    <p><h1>Energy Determination</h1></p>
     <br>
     <br>
     <input type="text" id="reaction" name="reaction" placeholder="Name of the Reaction" required/>
     <br>
     <input type="text" id="temp" name="temp" placeholder="Temperature of the Reaction" required/>
     <br>
-    <button type=""submit>Analyse</button>
+    <button type=""submit>Determine Energy</button>
 
   </form> 
   

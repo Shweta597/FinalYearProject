@@ -9,6 +9,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Kinetic Analysis</title>
   <link rel="stylesheet" href="/static/styles.css">
 
@@ -16,8 +17,8 @@
 </head>
 
 <body>
-
-  <nav class="navbar">
+  {% csrf_token %}
+  <nav class="navbar id="nav">
     <ul class="nav-links">
       <li><h2>KineticAnalysis</h2></li>
       <li><a href="/">Home</a></li>
@@ -25,59 +26,113 @@
       <li><a href="/dataAnalysis">DataAnalysis</a></li>
       <li><a href="/graphCreation">GraphCreation</a></li>
       <li><a href="/energyDetermination">EnergyDetermination</a></li>
+      <li><a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i></li>
     </ul>
   </nav>
-
-
-  <div class="container">
+    <div class="container">
+    <div class="item">
+    <button class="accordion">Welcom to the Kinetic Analysis Website</button>
+    <div class="panel">
     <p>
-    <h2>Welcom to the KineticAnalysis Website</h2>
+      This website can help you to find
+      <br>
+      <li>Which Mechanism is prevailing in Kinetic Data Analysis of Metallurgical Processes</li>
+      <li>You can get the graph of g (α) Vs t</li>
+      <li>You can also find the Activation Energy of the procese</li>
+    </p>
+    </div>
+    <button class="accordion">AddRecords</button>
+    <div class="panel">
+      <p>
+        In this section user have to give the following inputs
 
-    This website can help you to find
-    Which Mechanism is prevailing in Kinetic Data Analysis of Metallurgical Processes</li>
-    You can get the graph of g (α) Vs t
-    You can also find the Activation Energy of the proceses
+        <li>Name of the Reaction</li>
+        <li>Temperature at which reaction is happening</li>
+        <li>Number of Input user want to give</li>
+        <li>Initial Weight of the reaction</li>
+        <li>Final Weights as an array of length size</li>
+        <li>Time Periods as an array of length siz</li>
+        <li>We will verify and save user input in our database</li>
+      </p>
 
-    AddRecords: In this section user have to give the following inputs
+    </div>
 
-    1. Name of the Reaction
-    2. Temperature at which reaction is happening
-    3. Number of Input user want to give
-    4. Initial Weight of the reaction
-    5. Final Weights as an array of length size
-    6. Time Periods as an array of length size
+    <button class="accordion">DataAnalysis</button>
+    <div class="panel">
+      <p>
+        In this section user have to give
 
-    We will verify and save user input in our database.
+        <li>Name of the Reaction</li>
+        <li>Temperature at which reaction is happening</li>
 
-    DataAnalysis: In this section user have to give
+        <li>We will Analyse the data then give the user which Mechanism is prevailing among the seventeen different solid state
+        mechanism</li>
+      </p>
 
-    1. Name of the Reaction
-    2. Temperature at which reaction is happening
+    </div>
 
-    We will Analyse the data then give the user which Mechanism is prevailing among the seventeen different solid state
-    mechanism
+    <button class="accordion">DataAnalysis</button>
+    <div class="panel">
+      <p>
+        In this section if user want to get the plot between g (α) Vs t for an specific mechanism user have
+        to give
+        <li>Name of the Reaction</li>
+        <li>Temperature at which reaction is happening</li>
+        <li>Meachnism Number</li>
+      </p>
 
-    GraphCreation: In this section if user want to get the plot between g (α) Vs t for an specific mechanism user have
-    to give
-    1. Name of the Reaction
-    2. Temperature at which reaction is happening
-    3. Meachnism Number
+    </div>
 
 
-    EnergyDetermination:In this section if user want to get the Activation Energy for an specific proceses user have to
-    give
-    1. Name of the Reaction
-  </p>
+    <button class="accordion">EnergyDetermination</button>
+    <div class="panel">
+      <p>
+        In this section if user want to get the Activation Energy for an specific proceses user have to
+        give
+        <li>Name of the Reaction</li>
+      </p>
+
+    </div>
+
+
   </div>
+</div>
+    <footer>
+      <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/contact">AddRecords</a></li>
+        <li><a href="/energyDetermination">EnergyDetermination</a></li>
+      </ul>
+    </footer>
 
 
 
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
-        // {% for msg in messages %}
-        //     swal('{{msg}}')
-        // {% endfor %}  
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      });
+    }
 
+      function myFunction() {
+      var x = document.getElementById("nav");
+        if (x.className === "navbar") {
+          x.className += " responsive";
+        } else {
+          x.className = "nav";
+        }
+      }
   </script>
 </body>
 

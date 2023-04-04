@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    
+  {% csrf_token %} 
   <nav class="navbar">
     <ul class="nav-links">
       <li><h2>KineticAnalysis</h2></li>
@@ -22,8 +22,7 @@
   </nav>
 
   <form action="/addRecords" method="post">
-      {% csrf_token %}
-      <p>Add Records</p>
+      <p><h1>Add Records</h1></p>
       <br>
       <br>
       <input type="text" id="reaction" name="reaction" placeholder="Name of the Reaction" required/>

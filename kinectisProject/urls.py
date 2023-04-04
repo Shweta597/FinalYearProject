@@ -1,5 +1,4 @@
 """kinectisProject URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
@@ -25,10 +24,12 @@ from . import energy
 
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
     path('',views.home,name='Home'),
     path('addRecords',records.addRecords,name='Records'),
-    path('dataAnalysis',analysis.dataAnalysis,name='Analysis'),
+    path('dataAnalysis',analysis.dataAnalysis,name='dataAnalysis'),
+    path('analysis',analysis.Analysis,name='Analysis'),
     path('graphCreation',graph.graphCreation,name='Graph'),
     path('energyDetermination',energy.energyDetermination,name='Energy'),
     

@@ -11,9 +11,8 @@ db = client['kineticsData']
 collection = db['data']
 
 
-
-
 def addRecords(request):
+    
     if request.method == "POST":
         reaction = request.POST.get("reaction")
         temperature = request.POST.get("temp")
@@ -27,7 +26,9 @@ def addRecords(request):
             "size":size,
             "initialWeight":initialWeight,
             "finalWeights":finalWeights,
-            "timePeriods":timePeriods
+            "timePeriods":timePeriods,
+            "G_Alpha":[],
+            "MechNumber":0
         }
         allData = collection.find()
         
@@ -44,9 +45,6 @@ def addRecords(request):
         else:
             messages.error(request,"Invalid data")
         
-            
-            
-                
                     
+        
     return render(request,'record.html') 
-
