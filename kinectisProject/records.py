@@ -30,7 +30,8 @@ def addRecords(request):
             "timePeriods":timePeriods,
             "G_Alpha":"",
             "MechNumber":0,
-            "image_url":""
+            "image_url":"",
+            "k":""
         }
         allData = collection.find()
         

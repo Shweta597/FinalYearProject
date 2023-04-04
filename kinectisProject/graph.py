@@ -45,6 +45,23 @@ db = client['kineticsData']
 collection = db['data']
 
 
+def calculateSlopePart(gAlpha, timePeriods, size):
+    sy = sum(gAlpha)
+
+    sx = sum(timePeriods)
+
+    sxsy = 0
+
+    sx2 = 0
+
+    for i in range(size):
+        sxsy += (gAlpha[i] * timePeriods[i])
+        sx2 += (timePeriods[i]*timePeriods[i])
+    b = (size * sxsy - sx * sy)/(size * sx2 - sx * sx)
+
+    return b
+
+
 
 
 
@@ -66,6 +83,8 @@ def graph(request):
         image_url = ""
         check = False
         result = []
+        k = 0
+        size = 0
 
         for item in reactionData:
             if item["reaction"] == reaction and item["temperature"] == temperature:
@@ -88,6 +107,7 @@ def graph(request):
             if MechNumber != 0:
                 x = [float(i) for i in timePeriods.split(',')]
                 y = [float(i) for i in G_Alpha.split(',')]
+                k = calculateSlopePart(y,x,size)
                 print(x)
                 print(y)
                 plt.plot(x,y)
@@ -99,7 +119,7 @@ def graph(request):
                 result = data['url']
                 filter = {'reaction': reaction, 'temperature': temperature}
                 newValues = {
-                    "$set": {"image_url": result}}
+                    "$set": {"image_url": result,"k":k}}
                 collection.update_one(filter, newValues)
                 print(result)
                 os.remove('gAlphaVsTimePeriod.png')
@@ -113,7 +133,7 @@ def graph(request):
             result = "No records is available for this reaction"
             
 
-        return render(request, "graphCreationResult.html")
+        return render(request, "graphCreationResult.html",{'image_url':result})
 
 
 # autopep8 -i try.py

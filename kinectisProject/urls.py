@@ -32,7 +32,10 @@ urlpatterns = [
     path('analysis', analysis.Analysis,name='Analysis'),
     path('graphCreation',graph.graphCreation,name='GraphCreation'),
    
+   
     path('energyDetermination',energy.energyDetermination,name='Energy'),
     path('graph',graph.graph,name='Graph'),
+    path('energy',energy.energy,name='Energy'),
+    path('energyDetermination',energy.energyDetermination,name='EnergyDetermination')
     
 ]

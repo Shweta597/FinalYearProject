@@ -9,29 +9,19 @@
 
 
 
-body {
-  background: linear-gradient(45deg, #FC466B, #3F5EFB);
-  height: 100vh;
-  font-family: 'Montserrat', sans-serif;
-}
 
-.container {
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 55%;
-  left: 50%;
-}
+
 
 form {
-  background: rgba(255,255,255,0.3);
+  background: linear-gradient(45deg,#81a2bb,#1d6a80);
   padding: 5em;
   height: 300px;
   width: 200px;
   border-radius: 20px;
-  border-left: 1px solid rgba(255,255,255,0.3);
-  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid white;
+  border-top: 1px solid white;
   backdrop-filter: blur(10px);
-  box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
+  box-shadow: 20px 20px 40px -6px white;
   text-align: center;
   position: relative;
   transition: all 0.2s ease-in-out;
@@ -68,8 +58,8 @@ p {
     padding: 1em;
     margin-bottom: 2em;
     border: none;
-    border-left: 1px solid rgba(255,255,255,0.3);
-    border-top: 1px solid rgba(255,255,255,0.3);
+    border-left: 1px solid white;
+    border-top: 1px solid white;
     border-radius: 5000px;
     backdrop-filter: blur(5px);
     box-shadow: 4px 4px 60px rgba(0,0,0,0.2);
@@ -134,9 +124,12 @@ button:focus {
     </style>
 </head>
 <body>
-   
-   <h1>Hey Graph is created!</h1>
-   <img src="{{result}}" />
+  {% include 'index.html' %}
+    
+   {% block graphCreationResult %}
+   <img src=" {{ image_url }}">
+    {% endblock graphCreationResult %}
+  
 </body>
 
 

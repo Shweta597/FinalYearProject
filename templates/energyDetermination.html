@@ -4,46 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph</title>
+    <title>Energy Determination</title>
     <style type="text/css">
 
+
+
 body {
-  /* background: linear-gradient(45deg, #FC466B, #3F5EFB); */
+  background: linear-gradient(45deg, #FC466B, #3F5EFB);
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
 }
 
 .container {
   position: absolute;
-
-  margin-top: 10px;
-  margin-left: 50px;
-  
-  
+  transform: translate(-50%,-50%);
+  top: 55%;
+  left: 50%;
 }
+
 form {
-  background: linear-gradient(45deg,#81a2bb,#1d6a80);
+  background: rgba(255,255,255,0.3);
   padding: 5em;
-  padding-right: 6em;
   height: 300px;
   width: 200px;
   border-radius: 20px;
-  border-left: 1px solid white;
-  border-top: 1px solid white;
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-top: 1px solid rgba(255,255,255,0.3);
   backdrop-filter: blur(10px);
-  box-shadow: 20px 20px 40px -6px white;
+  box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
   text-align: center;
   position: relative;
   transition: all 0.2s ease-in-out;
 }
 p {
     font-weight: 500;
-    color: white;
+    color: #fff;
     opacity: 0.7;
     font-size: 2rem;
     margin-top: 0;
     margin-bottom: 30px;
-    
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
   }
   
   
@@ -78,9 +78,6 @@ p {
     font-weight: 500;
     transition: all 0.2s ease-in-out;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-  }
-  button{
-    margin-left: 15px;
   }
     
     input:hover {
@@ -134,31 +131,15 @@ button:focus {
     outline: none;
 }
 
-
-
     </style>
 </head>
 <body>
     
     {% include 'index.html' %}
     
-    <div class="container">
-    <form action="/graph" method="get">
-        {% csrf_token %}
-        <p>Graph Creation</p>
-        
-    
-        <input type="text" id="reaction" name="reaction" placeholder="Name of the Reaction" required/>
-       
-        <input type="text" id="temp" name="temp" placeholder="Temperature of the Reaction" required/>
-       
-        <button type="submit">Create Graph</button>
-        
-    
-</form> 
-
-
-</div>
+    {% block eneryDeterminationResult %}
+    {{ result }}
+    {% endblock eneryDeterminationResult %}
 </body>
 </html>
 
