@@ -5,22 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energy Determination</title>
-    <style type="text/css">
-
-
-
-
-
-
-    </style>
+    <link rel="stylesheet" href="../static/styles.css">
+    
 </head>
 <body>
+  {% include 'navbar.html' %}
+  <div class="Result">
     
-    {% include 'index.html' %}
     
     {% block eneryDeterminationResult %}
     {{ ActivationEnergy }}
     {% endblock eneryDeterminationResult %}
+  </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
 

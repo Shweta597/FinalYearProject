@@ -12,166 +12,16 @@
 
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>Kinetic Analysis</title>
- <!-- <link rel="stylesheet" href="../css/style.css"> -->
+ <link rel="stylesheet" href="../static/styles.css">
   <style type="text/css">
 
-body {
-  box-sizing: border-box;
-  margin-top: auto;
-  margin-left: auto;
-  height: 100vh;
-  width: 100vw;
-  font-family: 'Montserrat', sans-serif;
 
-}
-.container {
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 55%;
-  left: 50%;
-}
-
-.navbar {
-
-display: flex;
-
-align-items: center;
-margin-left: 0 px;
-margin-top: 0 px;
-
-justify-content: space-between;
-
-padding: 1px;
-/* background: linear-gradient(45deg, #FC466B, #3F5EFB); */
-background: linear-gradient(45deg,#2b6777,#81a2bb);
-/* background-color:linear-gradient(45deg, #FC466B, #3F5EFB); */
-
-color: #fff;
-
-}
-
-.nav-links a {
-
-color: #fff;
-
-}
-
-/* LOGO */
-
-.logo {
-
-font-size: 32px;
-
-
-}
-
-/* NAVBAR MENU */
-
-.menu {
-
-display: flex;
-
-gap: 0.5em;
-
-font-size: 18px;
-
-}
-
-.menu a:hover {
-
-background-color: black;
-
-border-radius: 10px;
-
-transition: 0.3s ease;
-
-}
-a{
-    text-decoration: none !important;
-    
-
+h2{
+  color: black;
 }
 
 
-.menu a {
-
-padding: 10px 10px;
-
-}
-
-/* DROPDOWN MENU */
-
-
-input[type=checkbox]{
-
-display: none;
-
-} 
-
-/*HAMBURGER MENU*/
-
-.hamburger {
-
-display: none;
-
-font-size: 24px;
-
-user-select: none;
-
-}
-
-/* APPLYING MEDIA QUERIES */
-
-@media (max-width: 768px) {
-
-.menu { 
-
-display:none;
-
-position: absolute;
-
-background-color:teal;
-
-right: 0;
-
-left: 0;
-
-text-align: center;
-
-padding: 15px 0;
-
-}
-
-.menu a:hover {
-
-display: inline-block;
-
-background-color:#4c9e9e;
-
-transition: 0.3s ease;
-
-}
-
-.menu a+a {
-
-margin-top: 15px;
-
-}
-
-input[type=checkbox]:checked ~ .menu{
-
-display: block;
-
-}
-
-.hamburger {
-
-display: block;
-
-}
-
-
-}   
+ 
 
 
  </style>
@@ -182,47 +32,54 @@ display: block;
 
  <body>
   
+  {% include 'navbar.html' %}
+ 
 
- <nav class="navbar">
+  <p>
+  <h2>Welcom to the KineticAnalysis Website</h2>
 
-   <!-- LOGO -->
+  This website can help you to find
+  Which Mechanism is prevailing in Kinetic Data Analysis of Metallurgical Processes</li>
+  You can get the graph of g (α) Vs t
+  You can also find the Activation Energy of the proceses
 
-   <div class="logo">KineticAnalysis</div>
+  AddRecords: In this section user have to give the following inputs
 
-   <!-- NAVIGATION MENU -->
+  1. Name of the Reaction
+  2. Temperature at which reaction is happening
+  3. Number of Input user want to give
+  4. Initial Weight of the reaction
+  5. Final Weights as an array of length size
+  6. Time Periods as an array of length size
 
-   <ul class="nav-links">
+  We will verify and save user input in our database.
 
-   <!-- USING CHECKBOX HACK -->
+  DataAnalysis: In this section user have to give
 
-   <input type="checkbox" id="checkbox_toggle" />
+  1. Name of the Reaction
+  2. Temperature at which reaction is happening
 
-   <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+  We will Analyse the data then give the user which Mechanism is prevailing among the seventeen different solid state
+  mechanism
 
-   <!-- NAVIGATION MENUS -->
+  GraphCreation: In this section if user want to get the plot between g (α) Vs t for an specific mechanism user have
+  to give
+  1. Name of the Reaction
+  2. Temperature at which reaction is happening
+  3. Meachnism Number
 
-   <div class="menu">
-    <a href="/">Home</a>
-     <a href="/addRecords">AddRecords</a>
 
-     <a href="/dataAnalysis">DataAnalysis</a>
+  EnergyDetermination:In this section if user want to get the Activation Energy for an specific proceses user have to
+  give
+  1. Name of the Reaction
+</p>
 
-     <a href="/graphCreation">GraphCreation</a>
 
-     
 
-     <a href="/energy">EnergyDetermination</a>
+   
 
-     
-   </div>
-    <div class="container">
-
-    </div>
-
-   </ul>
-
- </nav>
- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
  <script>
         {% for msg in messages %}
             swal('{{msg}}')
