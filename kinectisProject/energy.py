@@ -45,6 +45,28 @@ client = MongoClient(CONNECTION_STRING, connect=False)
 db = client['kineticsData']
 collection = db['data']
 
+def calculateSlopePart(gAlpha, timePeriods, size):
+    sy = sum(gAlpha)
+
+    sx = sum(timePeriods)
+
+    sxsy = 0
+
+    sx2 = 0
+
+    for i in range(size):
+        sxsy += (gAlpha[i] * timePeriods[i])
+        sx2 += (timePeriods[i]*timePeriods[i])
+    bot = (size * sx2 - sx * sx)
+    if bot!=0:
+         b = (size * sxsy - sx * sy)/bot
+    else:
+        b = (size * sxsy - sx * sy)
+
+    
+
+    return b
+
 
 
 def energy(request):
@@ -53,7 +75,6 @@ def energy(request):
 def energyDetermination(request):
     if request.method == "GET":
         reaction = request.GET.get("reaction")
-        temperature = request.GET.get("temp")
         reactionData = collection.find()
         finalWeights = []
         MechNumber = 0
@@ -62,57 +83,31 @@ def energyDetermination(request):
         image_url = ""
         check = False
         result = []
-        k = 0
+        k = []
         size = 0
+        temp = []
 
         for item in reactionData:
-            if item["reaction"] == reaction and item["temperature"] == temperature:
+            if item["reaction"] == reaction:
                 check = True
-                size = item["size"]
-                initialWeight = item["initialWeight"]
-                finalWeights = item["finalWeights"]
-                timePeriods = item["timePeriods"]
-                G_Alpha = item["G_Alpha"]
-                MechNumber = item["MechNumber"]
-                image_url = item["image_url"]
+                size = size+1
+                k.append(item['k'])
+                temp.append(int(item["temperature"]))
                 break
 
-        if check == True and image_url!="":
-            result = image_url
-
-        elif check == True:
-            x = []
-            y = []
-            if MechNumber != 0:
-                x = [float(i) for i in timePeriods.split(',')]
-                y = [float(i) for i in G_Alpha.split(',')]
-                k = calculateSlopePart(y,x,size)
-                print(x)
-                print(y)
-                plt.plot(x,y)
-                plt.savefig("gAlphaVsTimePeriod.png")
-                data = cloudinary.uploader.upload("gAlphaVsTimePeriod.png",folder="kinetics" )
-
-                # print(data)
-    
-                result = data['url']
-                filter = {'reaction': reaction, 'temperature': temperature}
-                newValues = {
-                    "$set": {"image_url": result,"k":k}}
-                collection.update_one(filter, newValues)
-                print(result)
-                os.remove('gAlphaVsTimePeriod.png')
+        if check == True:
+            if k != []:
+                result = calculateSlopePart(k,temp,size)
                 
             else:
-                
-                result = "Need to do data analysis first"
-                
+                result = "Need slopes are found"
+                    
 
         else:
             result = "No records is available for this reaction"
             
 
-        return render(request, "graphCreationResult.html",{'image_url':result})
+        return render(request, "energyDetermination.html",{'ActivationEnergy':result})
 
 
     return render(request,'energyDetermination.html') 

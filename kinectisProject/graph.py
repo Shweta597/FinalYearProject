@@ -49,7 +49,7 @@ def calculateSlopePart(gAlpha, timePeriods, size):
     sy = sum(gAlpha)
 
     sx = sum(timePeriods)
-
+    
     sxsy = 0
 
     sx2 = 0
@@ -107,7 +107,7 @@ def graph(request):
             if MechNumber != 0:
                 x = [float(i) for i in timePeriods.split(',')]
                 y = [float(i) for i in G_Alpha.split(',')]
-                k = calculateSlopePart(y,x,size)
+                k = calculateSlopePart(y,x,int(size))
                 print(x)
                 print(y)
                 plt.plot(x,y)
@@ -137,6 +137,7 @@ def graph(request):
 
 
 # autopep8 -i try.py
+
 
 
 
