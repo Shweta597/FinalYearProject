@@ -145,7 +145,38 @@ body {
   }
 }
 
+.accordion {
+  background:linear-gradient(45deg,#81a2bb,#1d6a80);
+  color:white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
 
+}
+.panel p{
+  color: black;
+}
+
+.active, .accordion:hover {
+  background-color: rgb(158, 152, 152);
+}
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+.homeContainer{
+  width: 60vw;
+  margin: 10vh 20vw;
+ 
+}
 
 .formContainer {
     

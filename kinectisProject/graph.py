@@ -110,6 +110,7 @@ def graph(request):
                 k = calculateSlopePart(y,x,int(size))
                 print(x)
                 print(y)
+                plt.figure()
                 plt.plot(x,y)
                 plt.savefig("gAlphaVsTimePeriod.png")
                 data = cloudinary.uploader.upload("gAlphaVsTimePeriod.png",folder="kinetics" )
